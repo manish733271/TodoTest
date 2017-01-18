@@ -10,12 +10,12 @@ export class TodosService {
 
    }
 
-   getTodos() : Observable<any> {
+   getTodos()  {
      return this._http.get('http://localhost:3000/api/v1/todos')
       .map(res => res.json());
    }
 
-   saveTodo(todo): Observable<any> {
+   saveTodo(todo) {
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
      
