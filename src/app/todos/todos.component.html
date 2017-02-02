@@ -14,9 +14,10 @@
         <input type = "checkbox" [checked] = "todo.isCompleted" (click) = "updateStatus(todo)" />
       </div>
       <div class = "col-md-7">
-
+        
         <span *ngIf = "!todo.isEditMode">{{ todo.text }}</span>
-        <input type = "text" *ngIf = "todo.isEditMode" [value] = "todo.text" (keypress) = "updateTodoText($event, todo)" />
+
+        <input type = "text" *ngIf = "todo.isEditMode" value = "todo.text" (keypress) = "updateTodoText($event, todo)" />
         <input type = "button" *ngIf = "todo.isEditMode" value = "Cancel" (click) = "setEditState(todo, false)" class = "btn btn-warning" />
      
       </div>

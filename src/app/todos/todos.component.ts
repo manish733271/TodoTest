@@ -31,10 +31,10 @@ export class TodosComponent implements OnInit {
     };
 
     result = this._todoService.saveTodo(newTodo);
-    result.subscribe(x => {
+    result.subscribe(x => {  
+      // location.reload();
       this.todos.push(newTodo);
       todoText.value = '';
-      location.reload();
     });
   }
 

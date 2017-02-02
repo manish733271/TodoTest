@@ -11,7 +11,7 @@ export class TodosService {
    }
 
    getTodos()  {
-     return this._http.get('/api/v1/todos')
+     return this._http.get('http://localhost:3000/api/v1/todos')
       .map(res => res.json());
    }
 
@@ -19,7 +19,7 @@ export class TodosService {
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
      
-     return this._http.post('/api/v1/todo', JSON.stringify(todo), {headers: headers})
+     return this._http.post('http://localhost:3000/api/v1/todo', JSON.stringify(todo), {headers: headers})
      .map(res => res.json());
    }
 
@@ -27,12 +27,12 @@ export class TodosService {
      var headers = new Headers();
      headers.append('Content-Type', 'application/json');
      
-     return this._http.put('/api/v1/todo/'+todo._id, JSON.stringify(todo), {headers: headers})
+     return this._http.put('http://localhost:3000/api/v1/todo/'+todo._id, JSON.stringify(todo), {headers: headers})
      .map(res => res.json());
    }
 
    deleteTodo(id){
-     return this._http.delete('/api/v1/todo/'+id)
+     return this._http.delete('http://localhost:3000/api/v1/todo/'+id)
      .map(res => res.json());
    }
 
