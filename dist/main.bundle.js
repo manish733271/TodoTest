@@ -26,23 +26,23 @@ var TodosService = (function () {
         this._http = _http;
     }
     TodosService.prototype.getTodos = function () {
-        return this._http.get('http://localhost:3000/api/v1/todos')
+        return this._http.get('/api/v1/todos')
             .map(function (res) { return res.json(); });
     };
     TodosService.prototype.saveTodo = function (todo) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this._http.post('http://localhost:3000/api/v1/todo', JSON.stringify(todo), { headers: headers })
+        return this._http.post('/api/v1/todo', JSON.stringify(todo), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TodosService.prototype.updateTodo = function (todo) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]();
         headers.append('Content-Type', 'application/json');
-        return this._http.put('http://localhost:3000/api/v1/todo/' + todo._id, JSON.stringify(todo), { headers: headers })
+        return this._http.put('/api/v1/todo/' + todo._id, JSON.stringify(todo), { headers: headers })
             .map(function (res) { return res.json(); });
     };
     TodosService.prototype.deleteTodo = function (id) {
-        return this._http.delete('http://localhost:3000/api/v1/todo/' + id)
+        return this._http.delete('/api/v1/todo/' + id)
             .map(function (res) { return res.json(); });
     };
     TodosService = __decorate([
@@ -52,7 +52,7 @@ var TodosService = (function () {
     return TodosService;
     var _a;
 }());
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/todos.service.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/todos.service.js.map
 
 /***/ },
 
@@ -89,7 +89,7 @@ if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment *
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["a" /* enableProdMode */])();
 }
 __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/main.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/main.js.map
 
 /***/ },
 
@@ -125,7 +125,7 @@ var AppComponent = (function () {
     ], AppComponent);
     return AppComponent;
 }());
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/app.component.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/app.component.js.map
 
 /***/ },
 
@@ -176,7 +176,7 @@ var AppModule = (function () {
     ], AppModule);
     return AppModule;
 }());
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/app.module.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/app.module.js.map
 
 /***/ },
 
@@ -210,7 +210,6 @@ var TodosComponent = (function () {
         });
     };
     TodosComponent.prototype.addTodo = function (event, todoText) {
-        var _this = this;
         var result;
         var newTodo = {
             text: todoText.value,
@@ -218,9 +217,9 @@ var TodosComponent = (function () {
         };
         result = this._todoService.saveTodo(newTodo);
         result.subscribe(function (x) {
-            _this.todos.push(newTodo);
-            todoText.value = '';
+            setTimeout(function () { this.todos.push(newTodo); }, 1000);
             location.reload();
+            todoText.value = '';
         });
     };
     TodosComponent.prototype.updateStatus = function (todo) {
@@ -284,7 +283,7 @@ var TodosComponent = (function () {
     return TodosComponent;
     var _a;
 }());
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/todos.component.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/todos.component.js.map
 
 /***/ },
 
@@ -300,7 +299,7 @@ var TodosComponent = (function () {
 var environment = {
     production: false
 };
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/environment.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/environment.js.map
 
 /***/ },
 
@@ -356,7 +355,7 @@ var environment = {
 
 
 
-//# sourceMappingURL=C:/Users/user/desktop/angfir/angnod/src/polyfills.js.map
+//# sourceMappingURL=C:/Users/Manish/Desktop/Projects/angnod/src/polyfills.js.map
 
 /***/ },
 
@@ -384,7 +383,7 @@ module.exports = "<div class=\"container\">\n\n  <div class=\"row\">\n    <div c
 /***/ 617:
 /***/ function(module, exports) {
 
-module.exports = "<div class = \"add-todo-form text-counter\">\n  <h1>Add Todo</h1>\n  <div class = \"form-group\">\n    <input class = \"form-control input-lg\" placeholder=\"Add todo..\" autofocus #todoText />  \n    <br>\n    <button (click) = \"addTodo($event, todoText)\" class = \"btn btn-primary\">Create</button>\n  </div>\n</div>\n\n<div class = \"todo-list\">\n  <div *ngFor = \"let todo of todos\">\n    <div class = \"row\">\n      <div class = \"col-md-1\">\n        <input type = \"checkbox\" [checked] = \"todo.isCompleted\" (click) = \"updateStatus(todo)\" />\n      </div>\n      <div class = \"col-md-7\">\n\n        <span *ngIf = \"!todo.isEditMode\">{{ todo.text }}</span>\n        <input type = \"text\" *ngIf = \"todo.isEditMode\" [value] = \"todo.text\" (keypress) = \"updateTodoText($event, todo)\" />\n        <input type = \"button\" *ngIf = \"todo.isEditMode\" value = \"Cancel\" (click) = \"setEditState(todo, false)\" class = \"btn btn-warning\" />\n     \n      </div>\n      <div class = \"col-md-4\">\n        <input (click) = \"deleteTodo(todo)\" type = \"button\" class = \"btn btn-danger pull-right\" value = \"Delete\" />\n        <input [class.disabled] = \"todo.isCompleted\" (click) = \"setEditState(todo, true)\" type = \"button\" class = \"btn btn-default pull-right\" value = \"Edit\" />\n      </div>\n    </div>\n  </div>\n</div>\n\n<!--\n  if isEditMode is true then hide {{todo.text}}\n-->"
+module.exports = "<div class = \"add-todo-form text-counter\">\n  <h1>Add Todo</h1>\n  <div class = \"form-group\">\n    <input class = \"form-control input-lg\" placeholder=\"Add todo..\" autofocus #todoText />  \n    <br>\n    <button (click) = \"addTodo($event, todoText)\" class = \"btn btn-primary\">Create</button>\n  </div>\n</div>\n\n<div class = \"todo-list\">\n  <div *ngFor = \"let todo of todos\">\n    <div class = \"row\">\n      <div class = \"col-md-1\">\n        <input type = \"checkbox\" [checked] = \"todo.isCompleted\" (click) = \"updateStatus(todo)\" />\n      </div>\n      <div class = \"col-md-7\">\n        \n        <span *ngIf = \"!todo.isEditMode\">{{ todo.text }}</span>\n\n        <input type = \"text\" *ngIf = \"todo.isEditMode\" [value] = \"todo.text\" (keypress) = \"updateTodoText($event, todo)\" />\n        <input type = \"button\" *ngIf = \"todo.isEditMode\" value = \"Cancel\" (click) = \"setEditState(todo, false)\" class = \"btn btn-warning\" />\n     \n      </div>\n      <div class = \"col-md-4\">\n        <input (click) = \"deleteTodo(todo)\" type = \"button\" class = \"btn btn-danger pull-right\" value = \"Delete\" />\n        <input [disabled] = \"todo.isCompleted\" (click) = \"setEditState(todo, true)\" type = \"button\" class = \"btn btn-default pull-right\" value = \"Edit\" />\n      </div>\n    </div>\n  </div>\n</div>\n\n<!--\n  if isEditMode is true then hide {{todo.text}}\n-->"
 
 /***/ },
 

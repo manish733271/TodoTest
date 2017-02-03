@@ -32,8 +32,8 @@ export class TodosComponent implements OnInit {
 
     result = this._todoService.saveTodo(newTodo);
     result.subscribe(x => {  
-      // location.reload();
-      this.todos.push(newTodo);
+      setTimeout(function(){this.todos.push(newTodo)}, 1000);
+      location.reload();
       todoText.value = '';
     });
   }
